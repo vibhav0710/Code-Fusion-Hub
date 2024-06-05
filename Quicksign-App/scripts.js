@@ -7,6 +7,8 @@ const saveBtn = document.getElementById("saveBtn")
 const retrieveBtn = document.getElementById("retrieveBtn");
 const ctx = canvas.getContext('2d')
 
+ctx.lineJoin = 'round'
+ctx.lineCap = 'round'
 
 colorPicker.addEventListener('change', (e)=> {
     ctx.strokeStyle = e.target.value;
@@ -69,3 +71,29 @@ retrieveBtn.addEventListener('click', (e)=> {
         ctx.drawImage(img,0,0)
     }
 })
+
+document.body.addEventListener("touchstart", function(e) {
+    if (e.target == canvas) {
+        e.preventDefault();
+        clientX = e.touches[0].clientX;
+        clientY = e.touches[0].clientY;
+        isDrawing=true
+        draw(clientX, clientY)
+    }
+}, false);
+
+document.body.addEventListener("touchend", function(e) {
+    if (e.target == canvas) {
+        e.preventDefault();
+        isDrawing=false
+    }
+}, false);
+
+document.body.addEventListener("touchmove", function(e) {
+    if (e.target == canvas) {
+        e.preventDefault();
+        clientX = e.touches[0].clientX;
+        clientY = e.touches[0].clientY;
+        draw(clientX, clientY)
+    }
+}, false);
