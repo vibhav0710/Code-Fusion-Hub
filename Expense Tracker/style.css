@@ -1,0 +1,35 @@
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    border-radius: 8px;
+}
+
+input[type="text"], select, input[type="number"], input[type=submit] {
+    width: 100%;
+    padding: 13px;
+    box-sizing: border-box;
+}
+
+input[type=submit] {
+    font-size: 23px;
+    font-weight: bold;
+    cursor: pointer;
+    color: rgb(245, 245, 245);
+}
+
+input[type=submit]:hover {
+    font-size: 25px;
+    color: rgb(245, 245, 245);
+}
+
+th {
+    font-size: 23px;
+    color: rgb(245, 245, 245);
+}
+
+td {
+    font-size: 20px;
+}
