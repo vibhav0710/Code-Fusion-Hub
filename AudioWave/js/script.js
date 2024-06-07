@@ -1,5 +1,3 @@
-console.log("let's write javascript");
-
 let currentSong = new Audio();
 let songs;
 let currFolder;
@@ -21,7 +19,7 @@ function secondsToMinutesSeconds(seconds) {
 async function getSongs(folder) {
   currFolder = folder;
   let a = await fetch(
-    `http://127.0.0.1:5500/Frontend-Projects/Music-Streaming-App/${folder}/`
+    `AudioWave/${folder}/`
   );
   let response = await a.text();
   let div = document.createElement("div");
@@ -43,7 +41,7 @@ async function getSongs(folder) {
     .querySelector(".songList")
     .getElementsByTagName("ul")[0];
   songUL.innerHTML = "";
-  //   console.log(songs);
+  
   for (const song of songs) {
     songUL.innerHTML =
       songUL.innerHTML +
@@ -64,9 +62,9 @@ async function getSongs(folder) {
     document.querySelector(".songList").getElementsByTagName("li")
   ).forEach((e) => {
     e.addEventListener("click", () => {
-      //   console.log(e.querySelector(".info").firstElementChild.innerHTML);
+      
       playMusic(e.querySelector(".info").firstElementChild.innerHTML);
-      // e.querySelector('.libPlayBtn').src = './images/pause.svg'
+      
     });
   });
   return songs;
@@ -74,7 +72,7 @@ async function getSongs(folder) {
 
 const playMusic = (track) => {
   currentSong.src =
-    `/Frontend-Projects/Music-Streaming-App/${currFolder}/` + track;
+    `/AudioWave/${currFolder}/` + track;
   currentSong.play();
   play.src = "./images/pause.svg";
   document.querySelector(".songInfo").innerHTML = track
@@ -85,7 +83,7 @@ const playMusic = (track) => {
 
 async function displayAlbums() {
   let a = await fetch(
-    `http://127.0.0.1:5500/Frontend-Projects/Music-Streaming-App/songs/`
+    `AudioWave/songs/`
   );
   let response = await a.text();
   let div = document.createElement("div");
@@ -98,12 +96,12 @@ async function displayAlbums() {
     if (e.href.includes("/songs/")) {
       let url = decodeURIComponent(e.href);
       let urlParts = url.split("/");
-      //   console.log(urlParts[urlParts.length - 1]);
+      
       let folder = urlParts[urlParts.length - 1];
-      //   console.log(e);
+      
       // Get the meta data of the folder
       let a = await fetch(
-        `http://127.0.0.1:5500/Frontend-Projects/Music-Streaming-App/songs/${folder}/info.json`
+        `AudioWave/songs/${folder}/info.json`
       );
 
       let response = await a.json();
@@ -122,7 +120,7 @@ async function displayAlbums() {
   // Load the playlist whenever the card is clicked
   Array.from(document.getElementsByClassName("card")).forEach((e) => {
     e.addEventListener("click", async (item) => {
-      console.log(item.currentTarget);
+      
       songs = await getSongs(`songs/${item.currentTarget.dataset.folder}`);
       playMusic(songs[0]);
     });
@@ -141,11 +139,11 @@ async function main() {
     if (currentSong.paused) {
       currentSong.play();
       play.src = "./images/pause.svg";
-      // document.querySelectorAll('.libPlayBtn').src = './images/pause.svg'
+      
     } else {
       currentSong.pause();
       play.src = "./images/play.svg";
-      // document.querySelectorAll('.libPlayBtn').src = './images/play.svg'
+      
     }
   });
 
@@ -183,7 +181,7 @@ async function main() {
     let decodeUrlParts = decodeUrl.split("/");
 
     let index = songs.indexOf(decodeUrlParts[decodeUrlParts.length - 1]);
-    // console.log(index);
+    
     if (index - 1 >= 0) {
       playMusic(songs[index - 1]);
     }
@@ -197,7 +195,7 @@ async function main() {
     let decodeUrlParts = decodeUrl.split("/");
 
     let index = songs.indexOf(decodeUrlParts[decodeUrlParts.length - 1]);
-    // console.log(index);
+    
     if (index + 1 < songs.length) {
       playMusic(songs[index + 1]);
     }
