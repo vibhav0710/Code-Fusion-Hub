@@ -19,7 +19,7 @@ function secondsToMinutesSeconds(seconds) {
 async function getSongs(folder) {
   currFolder = folder;
   let a = await fetch(
-    `AudioWave/${folder}/`
+    `/${folder}/`
   );
   let response = await a.text();
   let div = document.createElement("div");
@@ -72,7 +72,7 @@ async function getSongs(folder) {
 
 const playMusic = (track) => {
   currentSong.src =
-    `/AudioWave/${currFolder}/` + track;
+    `//${currFolder}/` + track;
   currentSong.play();
   play.src = "./images/pause.svg";
   document.querySelector(".songInfo").innerHTML = track
@@ -83,7 +83,7 @@ const playMusic = (track) => {
 
 async function displayAlbums() {
   let a = await fetch(
-    `AudioWave/songs/`
+    `/songs/`
   );
   let response = await a.text();
   let div = document.createElement("div");
@@ -101,7 +101,7 @@ async function displayAlbums() {
       
       // Get the meta data of the folder
       let a = await fetch(
-        `AudioWave/songs/${folder}/info.json`
+        `/songs/${folder}/info.json`
       );
 
       let response = await a.json();
